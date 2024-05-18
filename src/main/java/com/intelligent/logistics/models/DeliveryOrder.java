@@ -1,5 +1,7 @@
 package com.intelligent.logistics.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,12 +15,18 @@ public class DeliveryOrder {
 
     private String customerName;
     private String deliveryAddress;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime deliveryTime;
+
     private int volume; // Volume of the delivery order
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_delivery_order_id")
     private List<DeliveryOrder> deliveryOrders;
+
+    @ManyToOne
+    @JoinColumn(name = "vehicle_id")
+    private Vehicle vehicle; // Relationship with Vehicle entity
 
     // Constructors
     public DeliveryOrder() {
@@ -92,5 +100,13 @@ public class DeliveryOrder {
 
     public List<DeliveryOrder> getDeliveryOrders() {
         return deliveryOrders;
+    }
+
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
     }
 }

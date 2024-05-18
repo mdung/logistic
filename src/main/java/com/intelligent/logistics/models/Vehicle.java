@@ -1,7 +1,6 @@
 package com.intelligent.logistics.models;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 public class Vehicle {
@@ -12,18 +11,22 @@ public class Vehicle {
 
     private String registrationNumber;
     private String model;
-    private int capacity; // Capacity of the vehicle in terms of shipment volume
-
+    private int capacity;
     private String location;
+    private String color; // New field for color
+    private int year; // New field for year
 
     // Constructors
     public Vehicle() {
     }
 
-    public Vehicle(String registrationNumber, String model, int capacity) {
+    public Vehicle(String registrationNumber, String model, int capacity, String location, String color, int year) {
         this.registrationNumber = registrationNumber;
         this.model = model;
         this.capacity = capacity;
+        this.location = location;
+        this.color = color;
+        this.year = year;
     }
 
     // Getters and Setters
@@ -59,6 +62,30 @@ public class Vehicle {
         this.capacity = capacity;
     }
 
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
     // toString() method
     @Override
     public String toString() {
@@ -67,16 +94,9 @@ public class Vehicle {
                 ", registrationNumber='" + registrationNumber + '\'' +
                 ", model='" + model + '\'' +
                 ", capacity=" + capacity +
+                ", location='" + location + '\'' +
+                ", color='" + color + '\'' +
+                ", year=" + year +
                 '}';
-    }
-
-    // Getters and setters for other properties...
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public String getLocation() {
-        return location;
     }
 }

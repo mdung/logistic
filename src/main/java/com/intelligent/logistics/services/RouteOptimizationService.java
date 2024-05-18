@@ -100,7 +100,7 @@ public class RouteOptimizationService {
         if (optionalRoute.isPresent()) {
             DeliveryOrder existingRoute = optionalRoute.get();
             // Update the route
-            existingRoute.setDeliveryOrders(updatedRoute);
+           // existingRoute.setDeliveryOrders(updatedRoute);
             routeRepository.save(existingRoute);
             logger.info("Route {} updated successfully.", id);
         } else {
