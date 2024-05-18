@@ -1,21 +1,24 @@
 package com.intelligent.logistics.models;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 public class TrackingInfo {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private double latitude;
+    private double longitude;
+    private Date timestamp;
 
     @ManyToOne
     @JoinColumn(name = "delivery_order_id")
     private DeliveryOrder deliveryOrder;
 
-    private double latitude;
-    private double longitude;
-    private LocalDateTime timestamp;
+    // Getters and Setters
 
     public Long getId() {
         return id;
@@ -23,14 +26,6 @@ public class TrackingInfo {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public DeliveryOrder getDeliveryOrder() {
-        return deliveryOrder;
-    }
-
-    public void setDeliveryOrder(DeliveryOrder deliveryOrder) {
-        this.deliveryOrder = deliveryOrder;
     }
 
     public double getLatitude() {
@@ -49,11 +44,19 @@ public class TrackingInfo {
         this.longitude = longitude;
     }
 
-    public LocalDateTime getTimestamp() {
+    public Date getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(LocalDateTime timestamp) {
+    public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public DeliveryOrder getDeliveryOrder() {
+        return deliveryOrder;
+    }
+
+    public void setDeliveryOrder(DeliveryOrder deliveryOrder) {
+        this.deliveryOrder = deliveryOrder;
     }
 }
