@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -73,10 +73,13 @@ public class ReportService {
             List<TrackingInfo> trackingInfos = trackingInfoRepository.findByDeliveryOrderId(deliveryOrderId);
 
             if (!trackingInfos.isEmpty()) {
-                LocalDateTime startTime = trackingInfos.get(0).getTimestamp().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-                LocalDateTime endTime = trackingInfos.get(trackingInfos.size() - 1).getTimestamp().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+                LocalDateTime startTime = trackingInfos.get(0).getTimestamp();
+                LocalDateTime endTime = trackingInfos.get(trackingInfos.size() - 1).getTimestamp();
 
-                totalDeliveryTime += Duration.between(startTime, endTime).toMinutes();
+                totalDeliveryTime += Duration.between(
+                        startTime.atZone(ZoneOffset.UTC).toInstant(),
+                        endTime.atZone(ZoneOffset.UTC).toInstant()
+                ).toMinutes();
             }
         }
 

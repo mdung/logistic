@@ -1,6 +1,7 @@
 package com.intelligent.logistics.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -15,22 +16,23 @@ public class DeliveryOrder {
 
     private String customerName;
     private String deliveryAddress;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime deliveryTime;
 
-    private int volume; // Volume of the delivery order
+    private int volume;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_delivery_order_id")
     private List<DeliveryOrder> deliveryOrders;
 
     @ManyToOne
     @JoinColumn(name = "vehicle_id")
-    private Vehicle vehicle; // Relationship with Vehicle entity
+    private Vehicle vehicle;
 
     // Constructors
-    public DeliveryOrder() {
-    }
+    public DeliveryOrder() {}
 
     public DeliveryOrder(String customerName, String deliveryAddress, LocalDateTime deliveryTime, int volume) {
         this.customerName = customerName;
@@ -80,9 +82,22 @@ public class DeliveryOrder {
         this.volume = volume;
     }
 
-    // Getters and setters for other properties...
+    public List<DeliveryOrder> getDeliveryOrders() {
+        return deliveryOrders;
+    }
 
-    // toString() method
+    public void setDeliveryOrders(List<DeliveryOrder> deliveryOrders) {
+        this.deliveryOrders = deliveryOrders;
+    }
+
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
+    }
+
     @Override
     public String toString() {
         return "DeliveryOrder{" +
@@ -92,21 +107,5 @@ public class DeliveryOrder {
                 ", deliveryTime=" + deliveryTime +
                 ", volume=" + volume +
                 '}';
-    }
-
-    public void setDeliveryOrders(List<DeliveryOrder> deliveryOrders) {
-        this.deliveryOrders = deliveryOrders;
-    }
-
-    public List<DeliveryOrder> getDeliveryOrders() {
-        return deliveryOrders;
-    }
-
-    public Vehicle getVehicle() {
-        return vehicle;
-    }
-
-    public void setVehicle(Vehicle vehicle) {
-        this.vehicle = vehicle;
     }
 }

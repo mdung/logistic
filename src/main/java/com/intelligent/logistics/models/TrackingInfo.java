@@ -1,7 +1,7 @@
 package com.intelligent.logistics.models;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 public class TrackingInfo {
@@ -12,7 +12,9 @@ public class TrackingInfo {
 
     private double latitude;
     private double longitude;
-    private Date timestamp;
+
+    @Column(name = "timestamp")
+    private LocalDateTime timestamp;
 
     @ManyToOne
     @JoinColumn(name = "delivery_order_id")
@@ -44,11 +46,11 @@ public class TrackingInfo {
         this.longitude = longitude;
     }
 
-    public Date getTimestamp() {
+    public LocalDateTime getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Date timestamp) {
+    public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
     }
 
