@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface RouteRepository extends JpaRepository<DeliveryOrder, Long> {
-    Optional<List<DeliveryOrder>> findDeliveryOrdersById(Long id); // Renamed method
-    @Query("SELECT DISTINCT d.deliveryOrders FROM DeliveryOrder d")
-    List<List<DeliveryOrder>> findAllRoutes();
+//    Optional<List<DeliveryOrder>> findDeliveryOrdersById(Long id); // Renamed method
+//    @Query("SELECT DISTINCT d.deliveryOrders FROM DeliveryOrder d")
+//    List<List<DeliveryOrder>> findAllRoutes();
 }

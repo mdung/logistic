@@ -1,47 +1,32 @@
 package com.intelligent.logistics.models;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 public class DeliveryOrder {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String customerName;
     private String deliveryAddress;
-
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime deliveryTime;
-
     private int volume;
 
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_delivery_order_id")
-    private List<DeliveryOrder> deliveryOrders;
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vehicle_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Vehicle vehicle;
 
-    // Constructors
-    public DeliveryOrder() {}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "driver_id")
+    @JsonIgnoreProperties({"deliveryOrders", "hibernateLazyInitializer", "handler"})
+    private Driver driver;
 
-    public DeliveryOrder(String customerName, String deliveryAddress, LocalDateTime deliveryTime, int volume) {
-        this.customerName = customerName;
-        this.deliveryAddress = deliveryAddress;
-        this.deliveryTime = deliveryTime;
-        this.volume = volume;
-    }
-
-    // Getters and Setters
+    // Getters and setters
     public Long getId() {
         return id;
     }
@@ -82,14 +67,6 @@ public class DeliveryOrder {
         this.volume = volume;
     }
 
-    public List<DeliveryOrder> getDeliveryOrders() {
-        return deliveryOrders;
-    }
-
-    public void setDeliveryOrders(List<DeliveryOrder> deliveryOrders) {
-        this.deliveryOrders = deliveryOrders;
-    }
-
     public Vehicle getVehicle() {
         return vehicle;
     }
@@ -98,14 +75,11 @@ public class DeliveryOrder {
         this.vehicle = vehicle;
     }
 
-    @Override
-    public String toString() {
-        return "DeliveryOrder{" +
-                "id=" + id +
-                ", customerName='" + customerName + '\'' +
-                ", deliveryAddress='" + deliveryAddress + '\'' +
-                ", deliveryTime=" + deliveryTime +
-                ", volume=" + volume +
-                '}';
+    public Driver getDriver() {
+        return driver;
+    }
+
+    public void setDriver(Driver driver) {
+        this.driver = driver;
     }
 }

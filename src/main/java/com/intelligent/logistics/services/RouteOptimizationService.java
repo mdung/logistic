@@ -84,15 +84,15 @@ public class RouteOptimizationService {
         }
     }
 
-    // Method to retrieve all routes
-    public List<List<DeliveryOrder>> getAllRoutes() {
-        // Fetch all routes from the database using Spring Data JPA repository
-        List<List<DeliveryOrder>> allRoutes = routeRepository.findAllRoutes();
-
-        // Optionally, perform any additional processing or filtering of routes here
-
-        return allRoutes;
-    }
+//    // Method to retrieve all routes
+//    public List<List<DeliveryOrder>> getAllRoutes() {
+//        // Fetch all routes from the database using Spring Data JPA repository
+//        List<List<DeliveryOrder>> allRoutes = routeRepository.findAllRoutes();
+//
+//        // Optionally, perform any additional processing or filtering of routes here
+//
+//        return allRoutes;
+//    }
 
     public void updateRoute(Long id, List<DeliveryOrder> updatedRoute) {
         // Retrieve the route from the database

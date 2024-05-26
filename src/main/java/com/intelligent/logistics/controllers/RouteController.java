@@ -49,11 +49,11 @@ public class RouteController {
     }
 
     // Endpoint to fetch all routes
-    @GetMapping
-    public ResponseEntity<List<List<DeliveryOrder>>> getAllRoutes() {
-        List<List<DeliveryOrder>> routes = routeOptimizationService.getAllRoutes();
-        return new ResponseEntity<>(routes, HttpStatus.OK);
-    }
+//    @GetMapping
+//    public ResponseEntity<List<List<DeliveryOrder>>> getAllRoutes() {
+//        List<List<DeliveryOrder>> routes = routeOptimizationService.getAllRoutes();
+//        return new ResponseEntity<>(routes, HttpStatus.OK);
+//    }
 
     // Endpoint to update a route by ID
     @PutMapping("/{id}")
